@@ -1,0 +1,50 @@
+<div class="ticket-list-container">
+  <div class="header">
+    <h2>Support Tickets</h2>
+    <button class="btn btn-refresh" (click)="loadTickets()" [disabled]="loading">
+      <i class="fas fa-sync-alt" [class.spinning]="loading"></i>
+      Refresh
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner-large"></div>
+    <p>Loading tickets...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-error">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && tickets.length === 0" class="empty-state">
+    <i class="fas fa-ticket-alt"></i>
+    <h3>No tickets found</h3>
+    <p>No support tickets have been submitted yet.</p>
+  </div>
+
+  <div *ngIf="!loading && tickets.length > 0" class="tickets-grid">
+    <div *ngFor="let ticket of tickets" class="ticket-card">
+      <div class="ticket-header">
+        <h3 class="ticket-title">{{ ticket.title }}</h3>
+        <div class="ticket-meta">
+          <span class="ticket-id">#{{ ticket.id }}</span>
+          <span class="ticket-date">{{ ticket.createdAt | date:'short' }}</span>
+        </div>
+      </div>
+      
+      <div class="ticket-body">
+        <p class="ticket-description">{{ ticket.description }}</p>
+      </div>
+      
+      <div class="ticket-footer">
+        <span class="badge priority" [ngClass]="getPriorityClass(ticket.priority)">
+          {{ ticket.priority }}
+        </span>
+        <span class="badge status" [ngClass]="getStatusClass(ticket.status)">
+          {{ ticket.status }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

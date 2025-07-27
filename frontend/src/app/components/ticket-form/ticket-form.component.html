@@ -1,0 +1,73 @@
+<div class="ticket-form-container">
+  <h2>Submit a Support Ticket</h2>
+  
+  <div *ngIf="submitSuccess" class="alert alert-success">
+    <i class="fas fa-check-circle"></i>
+    Ticket submitted successfully!
+  </div>
+  
+  <div *ngIf="submitError" class="alert alert-error">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ submitError }}
+  </div>
+
+  <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()" class="ticket-form">
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input 
+        type="text" 
+        id="title" 
+        formControlName="title"
+        class="form-control"
+        [class.error]="title?.invalid && title?.touched"
+        placeholder="Brief description of the issue">
+      <div *ngIf="title?.invalid && title?.touched" class="error-message">
+        <span *ngIf="title?.errors?.['required']">Title is required</span>
+        <span *ngIf="title?.errors?.['minlength']">Title must be at least 3 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description *</label>
+      <textarea 
+        id="description" 
+        formControlName="description"
+        class="form-control"
+        [class.error]="description?.invalid && description?.touched"
+        rows="5"
+        placeholder="Detailed description of the issue or request">
+      </textarea>
+      <div *ngIf="description?.invalid && description?.touched" class="error-message">
+        <span *ngIf="description?.errors?.['required']">Description is required</span>
+        <span *ngIf="description?.errors?.['minlength']">Description must be at least 10 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="priority">Priority *</label>
+      <select 
+        id="priority" 
+        formControlName="priority"
+        class="form-control">
+        <option *ngFor="let p of priorities" [value]="p">{{ p }}</option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="ticketForm.invalid || isSubmitting">
+        <span *ngIf="isSubmitting" class="spinner"></span>
+        {{ isSubmitting ? 'Submitting...' : 'Submit Ticket' }}
+      </button>
+      <button 
+        type="button" 
+        class="btn btn-secondary"
+        (click)="ticketForm.reset(); ticketForm.patchValue({ priority: 'Medium' })"
+        [disabled]="isSubmitting">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

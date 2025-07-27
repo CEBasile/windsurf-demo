@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: ticket-app-test
+  
+  # Test Database configuration (H2 in-memory)
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false # Disable SQL logging in tests
+  
+  # OAuth2 Resource Server configuration for tests
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Mock configuration for tests
+          jwk-set-uri: https://mock-oidc-provider.com/.well-known/jwks.json
+          issuer-uri: https://mock-oidc-provider.com
+
+# Application configuration for tests
+app:
+  security:
+    # Disable mock JWT for integration tests (use Spring Security Test instead)
+    mock-jwt: false
+
+# Actuator configuration for tests
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+# Logging configuration for tests
+logging:
+  level:
+    com.ticketapp: INFO
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN
