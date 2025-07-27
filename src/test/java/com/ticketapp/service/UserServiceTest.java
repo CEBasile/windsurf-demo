@@ -1,5 +1,6 @@
 package com.ticketapp.service;
 
+import com.ticketapp.config.SecurityProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.lenient;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UserService Tests")
@@ -33,12 +35,17 @@ class UserServiceTest {
     @Mock
     private Authentication authentication;
 
+    @Mock
+    private SecurityProperties securityProperties;
+
     @InjectMocks
     private UserService userService;
 
     @BeforeEach
     void setUp() {
         SecurityContextHolder.setContext(securityContext);
+        // Default behavior: security is enabled (lenient to avoid unnecessary stubbing errors)
+        lenient().when(securityProperties.isEnabled()).thenReturn(true);
     }
 
     @Test

@@ -22,7 +22,7 @@ spring:
   # Security configuration
   security:
     # Set to false to disable authentication (useful for development)
-    enabled: ${SECURITY_ENABLED:false}
+    enabled: ${SECURITY_ENABLED:true}
     oauth2:
       resourceserver:
         jwt:

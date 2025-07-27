@@ -4,7 +4,7 @@ A full-stack ticket management system built with Spring Boot (backend) and Angul
 
 ## 🏗️ Architecture
 
-- **Backend**: Spring Boot 3.2.0 with Java 17
+- **Backend**: Spring Boot 3.3.5 with Java 21
 - **Frontend**: Angular 17+ with standalone components
 - **Database**: H2 (development), configurable for production
 - **Authentication**: OpenID Connect (OIDC) with JWT tokens
@@ -25,7 +25,7 @@ A full-stack ticket management system built with Spring Boot (backend) and Angul
 
 ### Prerequisites
 
-- **Java 17** or higher
+- **Java 21** or higher
 - **Node.js 18+** and npm
 - **Maven 3.6+**
 - Git
