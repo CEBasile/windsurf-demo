@@ -45,6 +45,9 @@ mvn clean install
 
 # Run the backend (will start on http://localhost:8080)
 mvn spring-boot:run
+
+# Run the backend without security for local development (Powershell)
+mvn spring-boot:run "-Dspring-boot.run.arguments=--security.enabled=false"
 ```
 
 ### 3. Frontend Setup
