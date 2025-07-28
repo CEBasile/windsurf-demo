@@ -19,6 +19,12 @@ spring:
       ddl-auto: create-drop
     show-sql: true
   
+  # Cache configuration
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
+  
   # Security configuration
   security:
     # Set to false to disable authentication (useful for development)
